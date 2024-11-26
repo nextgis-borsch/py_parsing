@@ -9,17 +9,16 @@ download_url = ''
 
 with open(sys.argv[1]) as data_file:
     data = json.load(data_file)
-
-    version = data['info']['version']
     name = data['info']['name']
-    for i in data['releases'][version]:
-        if i['url'].endswith('tar.gz') or i['url'].endswith('zip'):
-            download_url = i['url']
-            date = i['upload_time'].replace('T', ' ')
-            break
+    version_less_than = sys.argv[3]
 
-#    download_url = data['info']['download_url']
-#    date = data['releases'][version][0]['upload_time'].replace('T', ' ')
+    for version, i in reversed(data['releases'].items()):
+        if version < version_less_than:
+            index = len(i) - 1
+            if i[index]['url'].endswith('tar.gz') or i[index]['url'].endswith('zip'):
+                download_url = i[0]['url']
+                date = i[index]['upload_time'].replace('T', ' ')
+                break
 
     version_file_name = os.path.join(os.path.dirname(sys.argv[1]), 'version.str')
     version_file = open(version_file_name, 'w')

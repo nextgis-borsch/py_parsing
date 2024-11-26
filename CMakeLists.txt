@@ -59,8 +59,10 @@ file(DOWNLOAD "https://pypi.python.org/pypi/${PROJECT_NAME}/json" "${CMAKE_CURRE
 include(util)
 get_compiler_version(COMPILER)
 # get version and download url
+
+set(VERSION_LESS_THAN "3.2.0")
 execute_process(COMMAND ${PYTHON_EXECUTABLE}
-    ${CMAKE_SOURCE_DIR}/cmake/pypi_process.py ${PLUGIN} ${CMAKE_CURRENT_BINARY_DIR}/meta.json ${COMPILER}
+    ${CMAKE_SOURCE_DIR}/cmake/pypi_process.py ${PLUGIN} ${CMAKE_CURRENT_BINARY_DIR}/meta.json ${COMPILER} "${VERSION_LESS_THAN}"
     OUTPUT_VARIABLE PACKAGE_DETAILS
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
@@ -101,7 +103,7 @@ else()
 endif()
 
 # Download tarbal
-set(OUT_DIR_NAME ${PROJECT_NAME}-${VERSION})
+set(OUT_DIR_NAME ${PROJECT_NAME})
 set(OUT_NAME "${OUT_DIR_NAME}.tar.gz")
 
 if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${OUT_NAME}")
@@ -118,7 +120,7 @@ if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${OUT_DIR_NAME})
 endif()
 
 if(NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL )
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${OUT_DIR_NAME}/pyparsing DESTINATION ${INSTALL_LIB_DIR}/Lib/site-packages/)
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${OUT_DIR_NAME} DESTINATION ${INSTALL_LIB_DIR}/Lib/site-packages/)
 endif()
 
 # Archiving ====================================================================
