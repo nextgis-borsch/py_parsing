@@ -60,9 +60,13 @@ include(util)
 get_compiler_version(COMPILER)
 # get version and download url
 
-set(VERSION_LESS_THAN "3.2.0")
-execute_process(COMMAND ${PYTHON_EXECUTABLE}
-    ${CMAKE_SOURCE_DIR}/cmake/pypi_process.py ${PLUGIN} ${CMAKE_CURRENT_BINARY_DIR}/meta.json ${COMPILER} "${VERSION_LESS_THAN}"
+execute_process(COMMAND
+    ${PYTHON_EXECUTABLE}
+    ${CMAKE_SOURCE_DIR}/cmake/pypi_process.py
+    ${PLUGIN}
+    ${CMAKE_CURRENT_BINARY_DIR}/meta.json
+    ${COMPILER}
+    ${VERSION_MAX}
     OUTPUT_VARIABLE PACKAGE_DETAILS
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
