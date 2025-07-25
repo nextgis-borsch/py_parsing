@@ -124,7 +124,7 @@ if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${OUT_DIR_NAME})
 endif()
 
 if(NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL )
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${OUT_DIR_NAME} DESTINATION ${INSTALL_LIB_DIR}/Lib/site-packages/)
+	install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${OUT_DIR_NAME}-${VERSION}/pyparsing DESTINATION ${INSTALL_LIB_DIR}/Lib/site-packages/)
 endif()
 
 # Archiving ====================================================================
